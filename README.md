@@ -1,4 +1,4 @@
-# Jayanth Ravimurugan — Portfolio
+# Jayanth Ravimurugan — Portfolio Website
 
 Personal site for an AI Engineer: interactive project demos, case studies, and a
 one-click resume with privacy-conscious download notifications.
