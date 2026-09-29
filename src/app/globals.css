@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Light is the base; dark applies from the system preference
+   unless the visitor picked a theme (data-theme on <html>).
+   --------------------------------------------------------------------------- */
+:root {
+  --bg: #fafaf7;
+  --elev: #ffffff;
+  --subtle: #f1f1ec;
+  --line: #e4e4dd;
+  --line-strong: #cbcbc2;
+  --fg: #111311;
+  --muted: #4d544b;
+  --faint: #6a7167;
+  --accent: #1d7443;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(29 116 67 / 0.08);
+  --warn: #9a5b00;
+  --danger: #b42318;
+  --grid: rgb(17 19 17 / 0.05);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0b0a;
+    --elev: #111311;
+    --subtle: #171a17;
+    --line: #232823;
+    --line-strong: #353d35;
+    --fg: #eceee9;
+    --muted: #a6ada3;
+    --faint: #7c8479;
+    --accent: #7dd99a;
+    --accent-fg: #07100a;
+    --accent-soft: rgb(125 217 154 / 0.1);
+    --warn: #f0b04a;
+    --danger: #f97066;
+    --grid: rgb(236 238 233 / 0.045);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0b0a;
+  --elev: #111311;
+  --subtle: #171a17;
+  --line: #232823;
+  --line-strong: #353d35;
+  --fg: #eceee9;
+  --muted: #a6ada3;
+  --faint: #7c8479;
+  --accent: #7dd99a;
+  --accent-fg: #07100a;
+  --accent-soft: rgb(125 217 154 / 0.1);
+  --warn: #f0b04a;
+  --danger: #f97066;
+  --grid: rgb(236 238 233 / 0.045);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elev: var(--elev);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-warn: var(--warn);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* --------------------------------------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Subtle engineering-paper grid, masked so it fades out. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 30%, transparent 75%);
+}
+
+/* Entrance + scroll reveal. Only hidden when JS is present (html.js). */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, var(--subtle) 25%, var(--line) 50%, var(--subtle) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  html.js .reveal { opacity: 1; transform: none; }
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0a0b0a"/>
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#353d35" stroke-width="1.5"/>
+  <text x="32" y="41" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="24" font-weight="600" fill="#eceee9" letter-spacing="-1">JR</text>
+  <circle cx="50" cy="14" r="4" fill="#7dd99a"/>
+</svg>
